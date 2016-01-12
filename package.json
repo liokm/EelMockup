@@ -7,6 +7,8 @@
   },
   "dependencies": {
     "react-native": "^0.17.0",
-    "react-native-router-flux": "^2.0.5"
+    "react-native-orientation": "^1.12.1",
+    "react-native-router-flux": "^2.0.5",
+    "react-native-vector-icons": "^1.0.4"
   }
 }

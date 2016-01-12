@@ -10,6 +10,8 @@ import com.facebook.react.ReactRootView;
 import com.facebook.react.modules.core.DefaultHardwareBackBtnHandler;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
+import com.oblador.vectoricons.VectorIconsPackage;
+import com.github.yamill.orientation.OrientationPackage;
 
 public class MainActivity extends Activity implements DefaultHardwareBackBtnHandler {
 
@@ -26,6 +28,8 @@ public class MainActivity extends Activity implements DefaultHardwareBackBtnHand
                 .setBundleAssetName("index.android.bundle")
                 .setJSMainModuleName("index.android")
                 .addPackage(new MainReactPackage())
+                .addPackage(new VectorIconsPackage())
+                .addPackage(new OrientationPackage(this))
                 .setUseDeveloperSupport(BuildConfig.DEBUG)
                 .setInitialLifecycleState(LifecycleState.RESUMED)
                 .build();
@@ -74,5 +78,13 @@ public class MainActivity extends Activity implements DefaultHardwareBackBtnHand
         if (mReactInstanceManager != null) {
             mReactInstanceManager.onResume(this, this);
         }
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        Intent intent = new Intent("onConfigurationChanged");
+        intent.putExtra("newConfig", newConfig);
+        this.sendBroadcast(intent);
     }
 }
