@@ -6,9 +6,12 @@
     "start": "node node_modules/react-native/local-cli/cli.js start"
   },
   "dependencies": {
+    "react": "^0.14.6",
     "react-native": "^0.17.0",
     "react-native-orientation": "^1.12.1",
     "react-native-router-flux": "^2.0.5",
-    "react-native-vector-icons": "^1.0.4"
+    "react-native-vector-icons": "^1.0.4",
+    "react-redux": "^4.0.6",
+    "redux": "^3.0.5"
   }
 }
