@@ -1,5 +1,3 @@
 rootProject.name = 'EelMockup'
 
-include ':react-native-vector-icons',  ':Orientation', ':app'
-project(':react-native-vector-icons').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-vector-icons/android')
-project(':Orientation').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-orientation/android')
+include ':app'
