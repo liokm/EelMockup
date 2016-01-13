@@ -10,6 +10,7 @@
     "react-native": "^0.18.0-rc",
     "react-native-orientation": "^1.12.1",
     "react-native-router-flux": "^2.0.5",
+    "react-native-scrollable-tab-view": "^0.3.4",
     "react-native-vector-icons": "^1.0.4",
     "react-redux": "^4.0.6",
     "redux": "^3.0.5"
