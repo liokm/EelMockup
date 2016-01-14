@@ -3,6 +3,7 @@ import { createStore, applyMiddleware, combineReducers, bindActionCreators } fro
 import { Provider, connect } from 'react-redux';
 import thunk from 'redux-thunk';
 import { Actions, Router, Route, Schema, Animations, TabBar } from 'react-native-router-flux';
+import Orientation from 'react-native-orientation';
 
 // TODO
 //import * as reducers from '../reducers';
@@ -12,7 +13,7 @@ const reducers = {
   counter(state=0, action={}) {
     switch (action.type) {
       case INC:
-        return state + 1;
+        return state + (action.num || 1);
       default:
         return state;
     }
@@ -24,6 +25,10 @@ const reducer = combineReducers(reducers);
 const store = createStoreWithMiddleware(reducer);
 
 export default class App extends Component {
+  componentDidMount() {
+    //Orientation.lockToPortrait();
+    Orientation.addOrientationListener(() =>  store.dispatch({ type: INC, num: 10 }))
+  }
   render() {
     return (
       <Provider store={store}>
@@ -39,11 +44,10 @@ export default class App extends Component {
 
 class Launch extends Component {
   render() {
-
     return (
       <View style={styles.container}>
       <Text> Launch </Text>
-        <TouchableNativeFeedback onPress={ () => { store.dispatch({type: INC}); Actions.today() }}>
+        <TouchableNativeFeedback onPress={ () => { this.props.dispatch({type: INC}); Actions.today() }}>
         <View>
         <Text>Today</Text>
         </View>
