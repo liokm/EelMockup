@@ -8,9 +8,14 @@ const {
   Navigator,
   Text,
   View,
-  TouchableNativeFeedback
+  TouchableNativeFeedback,
+  ScrollView
 } = React;
 import  { Actions, Router, Route, Schema, Animations, TabBar } from 'react-native-router-flux';
+import ScrollableTabView from 'react-native-scrollable-tab-view';
+
+import StatusButton from './app/components/StatusButton';
+
 
 //var EelMockup = React.createClass({
 //  render: function() {
@@ -79,6 +84,20 @@ class Launch extends Component {
   render() {
     return (
       <View style={styles.container}>
+      <View style={{ flexDirection: 'row', flex: 1 }}>
+        <StatusButton name='access-time' text="ON DUTY" />
+        <StatusButton name='local-shipping' size={30} text="DRIVING" />
+        <StatusButton name='snooze' size={90} text="SLEEPER" />
+        <StatusButton name='local-cafe' text="OFF DUTY" active={true}/>
+      </View>
+      <ScrollableTabView initialPage={0}>
+        <ScrollView tabLabel="TODAY" style={styles.cont}>
+          <Text> Foo </Text>
+        </ScrollView>
+        <ScrollView tabLabel="8 DAYS" style={styles.cont}>
+          <Text> Bar </Text>
+        </ScrollView>
+      </ScrollableTabView>
         <Text>Launch Page</Text>
         <TouchableNativeFeedback onPress={ Actions.today }>
         <View>
@@ -117,12 +136,15 @@ class EelMockup extends Component {
 }
 
 var styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+  cont: {
+    flex: 1
   },
+  //container: {
+  //  flex: 1,
+  //  justifyContent: 'center',
+  //  alignItems: 'center',
+  //  backgroundColor: '#F5FCFF',
+  //},
   welcome: {
     fontSize: 20,
     textAlign: 'center',
