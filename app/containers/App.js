@@ -7,9 +7,15 @@ import { Actions, Router, Route, Schema, Animations, TabBar } from 'react-native
 // TODO
 //import * as reducers from '../reducers';
 //import CounterApp from './counterApp';
+const INC = 'INC';
 const reducers = {
-  counter(state=0, action) {
-    return state + 1;
+  counter(state=0, action={}) {
+    switch (action.type) {
+      case INC:
+        return state + 1;
+      default:
+        return state;
+    }
   }
 };
 
@@ -19,7 +25,6 @@ const store = createStoreWithMiddleware(reducer);
 
 export default class App extends Component {
   render() {
-    //
     return (
       <Provider store={store}>
         <Router hideNavBar={true}>
@@ -34,10 +39,11 @@ export default class App extends Component {
 
 class Launch extends Component {
   render() {
+
     return (
       <View style={styles.container}>
       <Text> Launch </Text>
-        <TouchableNativeFeedback onPress={ Actions.today }>
+        <TouchableNativeFeedback onPress={ () => { store.dispatch({type: INC}); Actions.today() }}>
         <View>
         <Text>Today</Text>
         </View>
