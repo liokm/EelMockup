@@ -4,58 +4,65 @@ import React, {
   View,
   Text,
   TouchableNativeFeedback,
-  Dimensions
+  Dimensions,
+  ToastAndroid
 } from 'react-native';
-
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-//import  { Actions, Router, Route, Schema, Animations, TabBar } from 'react-native-router-flux';
-
-const styles = StyleSheet.create({
-  button: {
-    backgroundColor: '#eee',
-    flex: 1,
-  },
-  active: {
-
-  },
-  text: {
-    backgroundColor: '#ccc',
-    alignSelf: 'stretch',
-    color: 'white',
-    textAlign: 'center',
-  },
-  icon: {
-    textAlign: 'center',
-    color: 'white',
-  }
-});
-//#74d9cd
-//#57d1c2
-//#e2e2e2
-//#dcdcdc
-
-//
 export default class StatusButton extends Component {
   render() {
-    const { active, name, size, onPress, text } = this.props;
-    // TODO Measure the size at upper place
-    const { width, height } = Dimensions.get('window');
-
-    let bs = {};
-    let ts = {};
-    if (active) {
-      bs = { backgroundColor: '#74d9cd' };
-      ts = { backgroundColor: '#57d1c2' };
-    }
-
+    const { active, icon, size, onPress, text } = this.props;
     return (
-       <TouchableNativeFeedback>
-         <View style={ styles.button }>
-          <Icon name={name} size={width / 4 * 0.65} style={ styles.icon } />
-          <Text style={styles.text}>{ text }</Text>
+       <TouchableNativeFeedback onPress={onPress} background={TouchableNativeFeedback.SelectableBackground()} delayPressIn={0} >
+         <View style={active?styles.buttonActive:styles.button}>
+          <View style={styles.iconWrapper}>
+            <Icon name={icon} size={size} style={styles.icon} />
+          </View>
+          <View style={active?styles.textWrapperActive:styles.textWrapper}>
+            <Text style={styles.text}>{ text }</Text>
+          </View>
          </View>
        </TouchableNativeFeedback>
     )
   }
 }
+
+const buttonStyle = {
+  backgroundColor: '#e2e2e2',
+  flex: 1,
+  alignItems: 'center',
+  justifyContent: 'center',
+};
+
+const textWrapperStyle = {
+  alignItems: 'center',
+  alignSelf: 'stretch',
+  backgroundColor: '#dcdcdc',
+  padding: 8,
+};
+
+const styles = StyleSheet.create({
+  active: {
+  },
+  button: buttonStyle,
+  buttonActive: {
+    ...buttonStyle,
+    backgroundColor: '#74d9cd',
+  },
+  textWrapper: textWrapperStyle,
+  textWrapperActive: {
+    ...textWrapperStyle,
+    backgroundColor: '#57d1c2',
+  },
+  text: {
+    fontWeight: 'bold',
+    color: 'white',
+  },
+  iconWrapper: {
+    alignItems: 'center',
+    padding: 6,
+  },
+  icon: {
+    color: 'white',
+  }
+});
