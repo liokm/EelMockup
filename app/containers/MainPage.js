@@ -16,7 +16,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import { Actions } from 'react-native-router-flux';
 import StatusButton from '../components/StatusButton';
 import TextCounter from '../components/TextCounter';
-import MenuItem from '../components/MenuItem';
+import Menu from '../components/Menu';
 
 function durationFormat(d) {
   return d.format('s hh:mm:ss').split(' ')[1];
@@ -26,44 +26,6 @@ const BG_PATH = "M3.00191459,1 C1.34400294,1 0,2.34785514 0,4.00550479 L0,217.99
 const RING_ONE_PATH = "M84,121 C130.391921,121 168,106.673113 168,89 C168,71.3268871 130.391921,57 84,57 C37.6080787,57 0,71.3268871 0,89 C0,106.673113 37.6080787,121 84,121 Z M84,121";
 
 
-function getMenu() {
-  return (
-    <ScrollView style={styles.menu}>
-      <MenuItem icon='description' text='Terms & Conditions' onPress={Actions.terms} />
-      <MenuItem icon='info' text='Safe Driving' />
-      <MenuItem icon='playlist-add-check' text='Vehicle Inspection' />
-      <MenuItem icon='explore' text='Driver Action Center' />
-      <MenuItem icon='record-voice-over' text='Feedback' />
-      {/* airport-shuttle child-friendly rv-hookup */}
-      <MenuItem icon='compare-arrows' text='Change Vehicle' />
-      <MenuItem icon='library-books' text='HOS Rules' />
-      <MenuItem icon='exit-to-app' text='Sign out' />
-      <MenuItem icon='help-outline' text='Help' onPress={Actions.help} />
-      <View style={{height: 20}} />
-    </ScrollView>
-  );
-}
-
-class MenuWrapper extends Component {
-  // TODO Click the menu icon
-  // this.refs.DRAWER.openDrawer()
-  render() {
-    const { menu=getMenu, width=300 } = this.props;
-    return (
-      <DrawerLayoutAndroid
-        drawerWidth={width}
-        drawerPosition={DrawerLayoutAndroid.positions.Right}
-        renderNavigationView={menu}
-        ref={'DRAWER'}
-      >
-        {
-          React.Children.map(this.props.children, child => React.cloneElement(child, {openMenu: () => this.refs.DRAWER.openDrawer() }))
-        }
-      </DrawerLayoutAndroid>
-    )
-  }
-}
-
 export default class MainPage extends Component {
   render() {
     // TODO Totally from ruleset configurations
@@ -71,7 +33,7 @@ export default class MainPage extends Component {
     //const { dimension: { width, height } } = this.props;
     //console.log(this.props);
     return (
-      <MenuWrapper>
+      <Menu>
       <View style={styles.container}>
         <ToolbarAndroid
           logo={require('../img/logo.png')}
@@ -119,7 +81,7 @@ export default class MainPage extends Component {
           </View>
         </View>
       </View>
-      </MenuWrapper>
+      </Menu>
     );
   }
 }
@@ -136,12 +98,6 @@ export default class MainPage extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1
-  },
-  menu: {
-    flex: 1,
-    backgroundColor: 'black',
-    paddingHorizontal: 10,
-    paddingTop: 6,
   },
   toolbar: {
     height: 48,

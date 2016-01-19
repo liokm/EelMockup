@@ -15,7 +15,7 @@ export default class MenuItem extends Component {
       onPress,
       text,
       icon,
-      iconSize=32,
+      iconSize=24,
     } = this.props;
     return (
       <TouchableNativeFeedback
@@ -23,7 +23,7 @@ export default class MenuItem extends Component {
         background={TouchableNativeFeedback.Ripple('white')}
         //delayPressIn={10}
         >
-        <View style={[styles.item, {height: iconSize + 12}]}>
+        <View style={[styles.item, {height: 48}]}>
           <Icon name={icon} size={iconSize} style={styles.icon} />
           <Text style={styles.text}>{ text }</Text>
         </View>
@@ -42,7 +42,8 @@ const styles = StyleSheet.create({
   },
   icon: {
     color: 'red',
-    marginRight: 8,
+    //marginRight: 72 - 16 - 24,
+    marginRight: 12,
   },
   text: {
     color: 'white'
