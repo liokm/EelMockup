@@ -29,7 +29,7 @@ const RING_ONE_PATH = "M84,121 C130.391921,121 168,106.673113 168,89 C168,71.326
 function getMenu() {
   return (
     <ScrollView style={styles.menu}>
-      <MenuItem icon='description' text='Terms & Conditions' />
+      <MenuItem icon='description' text='Terms & Conditions' onPress={Actions.terms} />
       <MenuItem icon='info' text='Safe Driving' />
       <MenuItem icon='playlist-add-check' text='Vehicle Inspection' />
       <MenuItem icon='explore' text='Driver Action Center' />
@@ -38,7 +38,7 @@ function getMenu() {
       <MenuItem icon='compare-arrows' text='Change Vehicle' />
       <MenuItem icon='library-books' text='HOS Rules' />
       <MenuItem icon='exit-to-app' text='Sign out' />
-      <MenuItem icon='help-outline' text='Help' />
+      <MenuItem icon='help-outline' text='Help' onPress={Actions.help} />
       <View style={{height: 20}} />
     </ScrollView>
   );

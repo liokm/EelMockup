@@ -17,11 +17,12 @@ export default class MenuItem extends Component {
       icon,
       iconSize=32,
     } = this.props;
-    //delayPressIn={10}
     return (
       <TouchableNativeFeedback
         onPress={ onPress || (() => ToastAndroid.show(text, ToastAndroid.LONG)) }
-        background={TouchableNativeFeedback.Ripple('white')}>
+        background={TouchableNativeFeedback.Ripple('white')}
+        //delayPressIn={10}
+        >
         <View style={[styles.item, {height: iconSize + 12}]}>
           <Icon name={icon} size={iconSize} style={styles.icon} />
           <Text style={styles.text}>{ text }</Text>

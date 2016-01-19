@@ -1,4 +1,9 @@
-import React, { Component, Dimensions, Navigator, View, Text, TouchableNativeFeedback, StyleSheet } from 'react-native';
+import React, {
+  Component, Dimensions, Navigator, View, Text, TouchableNativeFeedback, StyleSheet ,
+  WebView,
+  ToolbarAndroid,
+  ProgressBar,
+} from 'react-native';
 import { createStore, applyMiddleware, combineReducers, bindActionCreators } from 'redux';
 import { Provider, connect } from 'react-redux';
 import thunk from 'redux-thunk';
@@ -6,8 +11,10 @@ import { Actions, Router, Route, Schema, Animations, TabBar } from 'react-native
 //import Orientation from 'react-native-orientation';
 import Today from './Today';
 import MainPage from './MainPage';
+//import Terms from './Terms';
 import rulesets from '../rulesets';
 import { duration } from 'moment';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 // TODO
 //import * as reducers from '../reducers';
@@ -80,6 +87,13 @@ class Launch extends Component {
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  toolbar: {
+    height: 48,
+    backgroundColor: '#ee3124',
   }
 });
 
@@ -116,11 +130,96 @@ function select(state) {
 const connected = [
   MainPage,
   Today,
-  Launch
+  Launch,
+  //Terms,
 ].reduce((o, x) => {
   o[x.name] = connect(select)(x)
   return o;
 }, {});
+
+const s2 = StyleSheet.create({
+  toolbar: {
+    //paddingHorizontal: 16,
+    height: 56,
+    backgroundColor: '#ee3124',
+    flexDirection: 'row',
+    alignItems: 'center',
+    //justifyContent: 'center',
+  },
+  icon: {
+    width: 48,
+    height: 48,
+    //marginRight: 72 - 48,
+    //color: 'white',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  title: {
+    fontSize: 20,
+    fontFamily: 'roboto medium',
+    color: 'white'
+  }
+});
+
+class Toolbar extends Component {
+  render() {
+    const {
+      title,
+      onPress=Actions.pop,
+      // chevron-left
+      icon='close',
+    } = this.props;
+    return (
+      <View style={s2.toolbar}>
+        <TouchableNativeFeedback
+          background={TouchableNativeFeedback.SelectableBackgroundBorderless()}
+          onPress={onPress}
+          delayPressIn={0} >
+          <View style={s2.icon}>
+            <Icon name={icon} size={24} style={{color: 'white', alignSelf: 'center'}} />
+          </View>
+        </TouchableNativeFeedback>
+        <Text style={s2.title}>{ title }</Text>
+        {this.props.children}
+      {/*
+      <ToolbarAndroid style={s2.toolbar}>
+        <TouchableNativeFeedback onPress={onPress}>
+          <View>
+            <Icon name={icon} size={32} style={s2.icon} />
+          </View>
+        </TouchableNativeFeedback>
+        <Text style={s2.title}>{ title }</Text>
+        {this.props.children}
+      </ToolbarAndroid>
+        */}
+      </View>
+    );
+  }
+}
+class WebPage extends Component {
+  render() {
+    const { url, title } = this.props;
+    return (
+      <View style={{flex: 1}}>
+        {/*
+        <ToolbarAndroid
+          subtitle={title}
+          style={styles.toolbar}
+          subtitleColor='white'
+          >
+        </ToolbarAndroid>
+          */}
+        <Toolbar title={title} />
+        <WebView
+          style={{flex: 1}}
+          url={url}
+          startInLoadingState={true}
+          //renderLoading={ProgressBar}
+        />
+      </View>
+    );
+  }
+}
 
 class App extends Component {
   render() {
@@ -130,6 +229,7 @@ class App extends Component {
         <Route name="launch" component={connected.Launch} initial={false} title="Launch" />
         <Route name="today" component={connected.Today} initial={false} title="Today" sceneConfig={ Navigator.SceneConfigs.FloatFromBottom } />
         <Route name="main" component={connected.MainPage} initial={true} title="" sceneConfig={ Navigator.SceneConfigs.FloatFromBottom } />
+        <Route name="help" component={() => <WebPage title='Help' url='https://help.eroad.com/nz/driver-app/logbook/nz-logbook-overview/' />} />
       </Router>
     );
   }
