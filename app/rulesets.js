@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 // TODO RN currently does not support static method
 // in node_modules/react-native/packager/react-packager/.babelrc
+// Ref https://github.com/facebook/react-native/pull/5294
 //class RuleSet {
 //  static types = [
 //    { name: 'OFF', icon: 'local-cafe', text: "OFF DUTY" },

@@ -5,7 +5,9 @@ import thunk from 'redux-thunk';
 import { Actions, Router, Route, Schema, Animations, TabBar } from 'react-native-router-flux';
 //import Orientation from 'react-native-orientation';
 import Today from './Today';
+import MainPage from './MainPage';
 import rulesets from '../rulesets';
+import { duration } from 'moment';
 
 // TODO
 //import * as reducers from '../reducers';
@@ -44,7 +46,7 @@ const reducers = {
       default:
         return state;
     }
-  }
+  },
 };
 
 const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
@@ -92,16 +94,30 @@ function getDimension(orientation) {
   };
 }
 
+function getDrivingState({currentState}) {
+  return {
+    state: currentState,
+    drivingWindowLeft: duration(12, 'hour').add(9, 'minute').add(9, 'second'),
+    drivingTimeLeft: duration(55, 'minute'),
+    dutyTimeLeft: duration(12, 'second'),
+  }
+}
+
 function select(state) {
   return {
     counter: state.counter,
     dimension: getDimension(state.orientation),
     ruleset: rulesets.get(state.rulesetName),
-    currentState: state.currentState
+    currentState: state.currentState,
+    drivingState: getDrivingState(state)
   }
 }
 
-const connected = [Today, Launch].reduce((o, x) => {
+const connected = [
+  MainPage,
+  Today,
+  Launch
+].reduce((o, x) => {
   o[x.name] = connect(select)(x)
   return o;
 }, {});
@@ -112,7 +128,8 @@ class App extends Component {
       <Router hideNavBar={true}>
         <Schema name="default" sceneConfig={ Navigator.SceneConfigs.FloatFromRight} />
         <Route name="launch" component={connected.Launch} initial={false} title="Launch" />
-        <Route name="today" component={connected.Today} initial={true} title="Today" sceneConfig={ Navigator.SceneConfigs.FloatFromBottom } />
+        <Route name="today" component={connected.Today} initial={false} title="Today" sceneConfig={ Navigator.SceneConfigs.FloatFromBottom } />
+        <Route name="main" component={connected.MainPage} initial={true} title="" sceneConfig={ Navigator.SceneConfigs.FloatFromBottom } />
       </Router>
     );
   }
