@@ -11,6 +11,7 @@ import { Actions, Router, Route, Schema, Animations, TabBar } from 'react-native
 //import Orientation from 'react-native-orientation';
 import Today from './Today';
 import MainPage from './MainPage';
+import Toolbar from '../components/Toolbar';
 //import Terms from './Terms';
 import rulesets from '../rulesets';
 import { duration } from 'moment';
@@ -137,78 +138,12 @@ const connected = [
   return o;
 }, {});
 
-const s2 = StyleSheet.create({
-  toolbar: {
-    //paddingHorizontal: 16,
-    height: 56,
-    backgroundColor: '#ee3124',
-    flexDirection: 'row',
-    alignItems: 'center',
-    //justifyContent: 'center',
-  },
-  icon: {
-    width: 48,
-    height: 48,
-    //marginRight: 72 - 48,
-    //color: 'white',
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  title: {
-    fontSize: 20,
-    fontFamily: 'roboto medium',
-    color: 'white'
-  }
-});
 
-class Toolbar extends Component {
-  render() {
-    const {
-      title,
-      onPress=Actions.pop,
-      // chevron-left
-      icon='close',
-    } = this.props;
-    return (
-      <View style={s2.toolbar}>
-        <TouchableNativeFeedback
-          background={TouchableNativeFeedback.SelectableBackgroundBorderless()}
-          onPress={onPress}
-          delayPressIn={0} >
-          <View style={s2.icon}>
-            <Icon name={icon} size={24} style={{color: 'white', alignSelf: 'center'}} />
-          </View>
-        </TouchableNativeFeedback>
-        <Text style={s2.title}>{ title }</Text>
-        {this.props.children}
-      {/*
-      <ToolbarAndroid style={s2.toolbar}>
-        <TouchableNativeFeedback onPress={onPress}>
-          <View>
-            <Icon name={icon} size={32} style={s2.icon} />
-          </View>
-        </TouchableNativeFeedback>
-        <Text style={s2.title}>{ title }</Text>
-        {this.props.children}
-      </ToolbarAndroid>
-        */}
-      </View>
-    );
-  }
-}
 class WebPage extends Component {
   render() {
     const { url, title } = this.props;
     return (
       <View style={{flex: 1}}>
-        {/*
-        <ToolbarAndroid
-          subtitle={title}
-          style={styles.toolbar}
-          subtitleColor='white'
-          >
-        </ToolbarAndroid>
-          */}
         <Toolbar title={title} />
         <WebView
           style={{flex: 1}}
@@ -229,6 +164,7 @@ class App extends Component {
         <Route name="launch" component={connected.Launch} initial={false} title="Launch" />
         <Route name="today" component={connected.Today} initial={false} title="Today" sceneConfig={ Navigator.SceneConfigs.FloatFromBottom } />
         <Route name="main" component={connected.MainPage} initial={true} title="" sceneConfig={ Navigator.SceneConfigs.FloatFromBottom } />
+        <Route name="terms" component={() => <WebPage title='Terms & Conditions' url='https://help.eroad.com/nz/driver-app/logbook/nz-logbook-overview/' />} />
         <Route name="help" component={() => <WebPage title='Help' url='https://help.eroad.com/nz/driver-app/logbook/nz-logbook-overview/' />} />
       </Router>
     );
