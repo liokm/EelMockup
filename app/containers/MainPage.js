@@ -16,6 +16,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import { Actions } from 'react-native-router-flux';
 import StatusButton from '../components/StatusButton';
 import TextCounter from '../components/TextCounter';
+import MenuItem from '../components/MenuItem';
 
 function durationFormat(d) {
   return d.format('s hh:mm:ss').split(' ')[1];
@@ -25,54 +26,9 @@ const BG_PATH = "M3.00191459,1 C1.34400294,1 0,2.34785514 0,4.00550479 L0,217.99
 const RING_ONE_PATH = "M84,121 C130.391921,121 168,106.673113 168,89 C168,71.3268871 130.391921,57 84,57 C37.6080787,57 0,71.3268871 0,89 C0,106.673113 37.6080787,121 84,121 Z M84,121";
 
 
-const s2 = StyleSheet.create({
-  menu: {
-    flex: 1,
-    backgroundColor: 'black',
-    paddingHorizontal: 10,
-    paddingTop: 6,
-  },
-  item: {
-    flexDirection: 'row',
-    borderBottomColor: 'white',
-    borderBottomWidth: 1 / PixelRatio.get(),
-    alignItems: 'center',
-    overflow: 'visible',
-  },
-  icon: {
-    color: 'red',
-    marginRight: 8,
-  },
-  text: {
-    color: 'white'
-  }
-});
-
-class MenuItem extends Component {
-  render() {
-    const {
-      onPress,
-      text,
-      icon,
-      iconSize=32,
-    } = this.props;
-    //delayPressIn={10}
-    return (
-      <TouchableNativeFeedback
-        onPress={ onPress || (() => ToastAndroid.show(text, ToastAndroid.LONG)) }
-        background={TouchableNativeFeedback.Ripple('white')}>
-        <View style={[s2.item, {height: iconSize + 12}]}>
-          <Icon name={icon} size={iconSize} style={s2.icon} />
-          <Text style={s2.text}>{ text }</Text>
-        </View>
-      </TouchableNativeFeedback>
-    );
-  }
-}
-
 function getMenu() {
   return (
-    <ScrollView style={s2.menu}>
+    <ScrollView style={styles.menu}>
       <MenuItem icon='description' text='Terms & Conditions' />
       <MenuItem icon='info' text='Safe Driving' />
       <MenuItem icon='playlist-add-check' text='Vehicle Inspection' />
@@ -180,6 +136,12 @@ export default class MainPage extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1
+  },
+  menu: {
+    flex: 1,
+    backgroundColor: 'black',
+    paddingHorizontal: 10,
+    paddingTop: 6,
   },
   toolbar: {
     height: 48,
