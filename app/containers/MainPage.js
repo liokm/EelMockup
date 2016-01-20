@@ -17,6 +17,7 @@ import { Actions } from 'react-native-router-flux';
 import StatusButton from '../components/StatusButton';
 import TextCounter from '../components/TextCounter';
 import Toolbar from '../components/Toolbar';
+import IconItem from '../components/IconItem';
 
 function durationFormat(d) {
   return d.format('s hh:mm:ss').split(' ')[1];
@@ -43,6 +44,9 @@ export default class MainPage extends Component {
            {icon: 'menu', onPress: openMenu },
          ]}
        />
+       <View style={{height:56, backgroundColor: '#ee3124'}}>
+        <IconItem icon='menu' count={1} />
+       </View>
 
         <View style={styles.buttons}>
         {
