@@ -33,7 +33,7 @@ const RING_ONE_PATH = "M84,121 C130.391921,121 168,106.673113 168,89 C168,71.326
 class DayList extends Component {
   render() {
     return (
-      <View style={[styles.container]}>
+      <View style={[bstyles.container]}>
         <Text>8 DAYS</Text>
       </View>
     )
@@ -47,7 +47,7 @@ export default class MainPage extends Component {
     const { openMenu } = this.props;
     //const { dimension: { width, height } } = this.props;
     return (
-      <View style={styles.container}>
+      <View style={bstyles.container}>
         <Toolbar
           logo={require('../img/logo.png')}
           title='EROAD DRIVER'
@@ -80,32 +80,6 @@ export default class MainPage extends Component {
           <Today tabLabel='TODAY' {...this.props} style={{height: 100}}/>
           <DayList tabLabel='8 DAYS' {...this.props} />
         </TabView>
-
-        <View style={{flexDirection: 'column', justifyContent: 'space-around'}}>
-          <TextCounter
-            text='DRIVING WINDOW'
-            color='orange'
-            value={durationFormat(drivingWindowLeft)}
-            ratio={0.5}
-            />
-          <TextCounter
-            text='DRIVING TIME'
-            color='lightblue'
-            value={durationFormat(drivingTimeLeft)}
-            ratio={0.75}
-            />
-          <TextCounter
-            text='DUTY TIME'
-            color='purple'
-            value={durationFormat(dutyTimeLeft)}
-            ratio={0.25}
-            />
-        </View>
-        <View style={styles.counters}>
-          <View>
-          <Text>Left Part</Text>
-          </View>
-        </View>
       </View>
     );
   }
@@ -121,17 +95,6 @@ export default class MainPage extends Component {
 //}
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1
-  },
-  toolbar: {
-    height: 48,
-    backgroundColor: '#ee3124'
-  },
-  counters: {
-    flex: 1,
-    flexDirection: 'row'
-  },
   row: {
     flexDirection: 'row',
     justifyContent: 'space-between',
