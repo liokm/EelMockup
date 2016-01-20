@@ -11,7 +11,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 // TODO use ToolbarAndroid when <Icon> can be used inside it..
 class ToolbarItem extends Component {
   render() {
-    const { onPress=() => (), logo, icon='close' } = this.props;
+    const { onPress=() => {}, logo, icon='close' } = this.props;
     return (
       <TouchableNativeFeedback
         background={TouchableNativeFeedback.SelectableBackgroundBorderless()}
@@ -29,6 +29,7 @@ class ToolbarItem extends Component {
     );
   }
 }
+
 export default class Toolbar extends Component {
   render() {
     const {
@@ -47,14 +48,12 @@ export default class Toolbar extends Component {
           onPress={onPress}
         />
         {
-          title
-            ? <Text style={styles.title}>{ title }</Text>
-            : null
+          title ? <Text style={styles.title}>{ title }</Text> : null
         }
         {this.props.children}
         {
           <View style={styles.actions}>
-          { actions.map(action => <ToolbarItem {...actions} />) }
+          { actions.map(action => <ToolbarItem {...action} />) }
           </View>
         }
       </View>
