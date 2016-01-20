@@ -7,6 +7,7 @@ import React, {
 } from 'react-native';
 import { Surface, Shape, Path, Group } from 'ReactNativeART';
 import { Actions } from 'react-native-router-flux';
+import { bstyles } from '../Styles';
 import StatusButton from '../components/StatusButton';
 import TextCounter from '../components/TextCounter';
 
@@ -47,13 +48,13 @@ export default class Today extends Component {
     // TODO Totally from ruleset configurations
     const { dispatch, ruleset, currentState, drivingState: { drivingWindowLeft, drivingTimeLeft, dutyTimeLeft } } = this.props;
     //const { dimension: { width, height } } = this.props;
-    //console.log(this.props);
     return (
-      <View style={styles.container}>
-        <View style={styles.buttons}>
+      <View style={bstyles.container}>
+        <View style={bstyles.row}>
         {
-          ruleset.types.map(({name, icon, text}, i) =>
-                            <StatusButton key={i} size={90 * 0.6} icon={icon} text={text} active={name==currentState} onPress={ () => dispatch({type: 'CHANGE_STATE', state: name})} />)
+          ruleset.types.map(
+            ({name, icon, text}, i) =>
+            <StatusButton key={i} size={90 * 0.6} icon={icon} text={text} active={name==currentState} onPress={ () => dispatch({type: 'CHANGE_STATE', state: name})} />)
         }
         </View>
         <CircleCounter />
@@ -97,9 +98,6 @@ export default class Today extends Component {
 //}
 
 const styles = StyleSheet.create({
-  container: {
-     flex: 1
-  },
   buttons: {
     flexDirection: 'row'
   },
