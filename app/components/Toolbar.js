@@ -4,6 +4,8 @@ import React, {
   View,
   Text,
   TouchableNativeFeedback,
+  Image,
+  ToastAndroid,
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -11,7 +13,18 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 // TODO use ToolbarAndroid when <Icon> can be used inside it..
 class ToolbarItem extends Component {
   render() {
-    const { onPress=() => {}, logo, icon='close' } = this.props;
+    const { onPress, logo, icon='close' } = this.props;
+    if (!onPress) {
+      return (
+        <View style={styles.iconWrapper}>
+        {
+          logo
+            ? <Image source={logo} style={styles.logo} />
+            : <Icon name={icon} size={24} style={styles.icon} />
+        }
+        </View>
+      );
+    }
     return (
       <TouchableNativeFeedback
         background={TouchableNativeFeedback.SelectableBackgroundBorderless()}
@@ -53,7 +66,7 @@ export default class Toolbar extends Component {
         {this.props.children}
         {
           <View style={styles.actions}>
-          { actions.map(action => <ToolbarItem {...action} />) }
+          { actions.map((action, i) => <ToolbarItem key={i} {...action} />) }
           </View>
         }
       </View>
@@ -76,6 +89,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center'
   },
+  logo: {
+    alignSelf: 'center',
+    height: 24,
+    width: 24
+  },
   icon: {
     color: 'white',
     alignSelf: 'center'
@@ -87,6 +105,7 @@ const styles = StyleSheet.create({
   },
   actions: {
     flex: 1,
+    flexDirection: 'row',
     justifyContent: 'flex-end',
   }
 });

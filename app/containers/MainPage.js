@@ -16,7 +16,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import { Actions } from 'react-native-router-flux';
 import StatusButton from '../components/StatusButton';
 import TextCounter from '../components/TextCounter';
-import Menu from '../components/Menu';
+import Toolbar from '../components/Toolbar';
 
 function durationFormat(d) {
   return d.format('s hh:mm:ss').split(' ')[1];
@@ -30,25 +30,20 @@ export default class MainPage extends Component {
   render() {
     // TODO Totally from ruleset configurations
     const { dispatch, ruleset, currentState, drivingState: { drivingWindowLeft, drivingTimeLeft, dutyTimeLeft } } = this.props;
+    const { openMenu } = this.props;
     //const { dimension: { width, height } } = this.props;
-    //console.log(this.props);
     return (
-      <Menu>
       <View style={styles.container}>
-        <ToolbarAndroid
-          logo={require('../img/logo.png')}
-          subtitle=' EROAD Driver'
-          style={styles.toolbar}
-          subtitleColor='white'
-          >
-          <View style={{height: 48, alignItems: 'center'}}>
-          <TouchableNativeFeedback>
-          <View>
-            <Icon name='menu' size={32} style={{color: 'white'}} />
-          </View>
-          </TouchableNativeFeedback>
-          </View>
-        </ToolbarAndroid>
+       <Toolbar
+         logo={require('../img/logo.png')}
+         title='EROAD Driver'
+         onPress={null}
+         actions={[
+           //{logo: require('../img/logo.png') },
+           {icon: 'menu', onPress: openMenu },
+         ]}
+       />
+
         <View style={styles.buttons}>
         {
           ruleset.types.map(({name, icon, text}, i) =>
@@ -81,7 +76,6 @@ export default class MainPage extends Component {
           </View>
         </View>
       </View>
-      </Menu>
     );
   }
 }

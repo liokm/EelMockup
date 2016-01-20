@@ -29,11 +29,18 @@ function getMenu() {
   );
 }
 
+export function wrapMenu(component) {
+  return React.createClass({
+    displayName: `Wrapped${component.displayName || component.name}`,
+    render() {
+      return <Menu>{ React.createElement(component, this.props) }</Menu>;
+    }
+  })
+}
+
 export default class Menu extends Component {
-  // TODO Click the menu icon
-  // this.refs.DRAWER.openDrawer()
   render() {
-    const { menu=getMenu, width=304 } = this.props;
+    const { menu=getMenu, width=360-56 } = this.props;
     return (
       <DrawerLayoutAndroid
         drawerWidth={width}
