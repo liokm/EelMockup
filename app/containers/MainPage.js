@@ -30,22 +30,30 @@ const RING_ONE_PATH = "M84,121 C130.391921,121 168,106.673113 168,89 C168,71.326
 export default class MainPage extends Component {
   render() {
     // TODO Totally from ruleset configurations
-    const { dispatch, ruleset, currentState, drivingState: { drivingWindowLeft, drivingTimeLeft, dutyTimeLeft } } = this.props;
+    const { dispatch, ruleset, driver={ name: 'Alan Turing', vehicle: 'FQU819' }, online, currentState, drivingState: { drivingWindowLeft, drivingTimeLeft, dutyTimeLeft } } = this.props;
     const { openMenu } = this.props;
     //const { dimension: { width, height } } = this.props;
     return (
       <View style={styles.container}>
        <Toolbar
          logo={require('../img/logo.png')}
-         title='EROAD Driver'
+         title='EROAD DRIVER'
          onPress={null}
          actions={[
            //{logo: require('../img/logo.png') },
            {icon: 'menu', onPress: openMenu },
          ]}
        />
-       <View style={{height:56, backgroundColor: '#ee3124'}}>
-        <IconItem icon='menu' count={1} />
+
+       <View style={{backgroundColor: '#ee3124'}}>
+        <View style={styles.row}>
+          <Text style={[fonts.subheading, {color: 'white'}]}>{ driver.name }</Text>
+          <Text style={[fonts.subheading, {color: 'white'}]}>{ driver.vehicle }</Text>
+        </View>
+        <View style={[styles.row, {paddingLeft: 0}]}>
+          <IconItem icon='assignment' count={3} onPress={() => {}} />
+          <Text style={[fonts.caption, {color: 'white'}]}>{ online? 'ONLINE': 'OFFLINE' }</Text>
+        </View>
        </View>
 
         <View style={styles.buttons}>
@@ -107,5 +115,56 @@ const styles = StyleSheet.create({
   counters: {
     flex: 1,
     flexDirection: 'row'
+  },
+  row: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingHorizontal: 16,
+  },
+  rowText: {
+    color: 'white',
   }
+});
+
+// TODO Find a place for it
+const fonts = StyleSheet.create({
+  headline: {
+    fontSize: 24
+  },
+  title: {
+    fontSize: 20,
+    fontFamily: 'roboto medium',
+  },
+  subheading: {
+    fontSize: 16
+  },
+  body2: {
+    fontSize: 14,
+    fontFamily: 'roboto medium',
+  },
+  body1: {
+    fontSize: 14
+  },
+  caption: {
+    fontSize: 12
+  },
+  button: {
+    // TODO cap
+    fontSize: 14,
+    fontFamily: 'roboto medium',
+  },
+  display1: {
+    fontSize: 34
+  },
+  display2: {
+    fontSize: 45
+  },
+  display3: {
+    fontSize: 56
+  },
+  display4: {
+    fontSize: 112,
+    fontFamily: 'roboto light',
+  },
 });

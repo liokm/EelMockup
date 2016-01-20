@@ -68,14 +68,17 @@ const styles = StyleSheet.create({
   },
   countWrapper: {
     position: 'absolute',
-    top: 0,
-    right: 0,
+    top: 7,
+    right: 5,
     borderWidth: 1,
     borderColor: 'white',
     backgroundColor: 'lightblue',
-    borderRadius: 5,
+    borderRadius: 7,
+    paddingHorizontal: 4,
+    //paddingVertical: 1,
   },
   count: {
-    fontSize: 9
+    fontSize: 9,
+    color: 'white',
   }
 });
