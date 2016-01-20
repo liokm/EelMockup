@@ -8,6 +8,27 @@ import React, {
 import { Actions } from 'react-native-router-flux';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
+// TODO use ToolbarAndroid when <Icon> can be used inside it..
+class ToolbarItem extends Component {
+  render() {
+    const { onPress=() => (), logo, icon='close' } = this.props;
+    return (
+      <TouchableNativeFeedback
+        background={TouchableNativeFeedback.SelectableBackgroundBorderless()}
+        onPress={onPress}
+        delayPressIn={0}
+        >
+        <View style={styles.iconWrapper}>
+        {
+          logo
+            ? <Image source={logo} style={[styles.icon, {height: 24, width: 24}]} />
+            : <Icon name={icon} size={24} style={styles.icon} />
+        }
+        </View>
+      </TouchableNativeFeedback>
+    );
+  }
+}
 export default class Toolbar extends Component {
   render() {
     const {
@@ -15,19 +36,27 @@ export default class Toolbar extends Component {
       onPress=Actions.pop,
       // chevron-left
       icon='close',
+      logo,
+      actions=[],
     } = this.props;
     return (
       <View style={styles.toolbar}>
-        <TouchableNativeFeedback
-          background={TouchableNativeFeedback.SelectableBackgroundBorderless()}
+        <ToolbarItem
+          icon={icon}
+          logo={logo}
           onPress={onPress}
-          delayPressIn={0} >
-          <View style={styles.iconWrapper}>
-            <Icon name={icon} size={24} style={styles.icon} />
-          </View>
-        </TouchableNativeFeedback>
-        <Text style={styles.title}>{ title }</Text>
+        />
+        {
+          title
+            ? <Text style={styles.title}>{ title }</Text>
+            : null
+        }
         {this.props.children}
+        {
+          <View style={styles.actions}>
+          { actions.map(action => <ToolbarItem {...actions} />) }
+          </View>
+        }
       </View>
     );
   }
@@ -56,5 +85,9 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontFamily: 'roboto medium',
     color: 'white'
+  },
+  actions: {
+    flex: 1,
+    justifyContent: 'flex-end',
   }
 });

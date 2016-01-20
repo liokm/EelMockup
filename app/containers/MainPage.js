@@ -55,7 +55,7 @@ export default class MainPage extends Component {
                             <StatusButton key={i} size={90 * 0.6} icon={icon} text={text} active={name==currentState} onPress={ () => dispatch({type: 'CHANGE_STATE', state: name})} />)
         }
         </View>
-        <View style={{flexDirection: 'row', justifyContent: 'space-around'}}>
+        <View style={{flexDirection: 'column', justifyContent: 'space-around'}}>
           <TextCounter
             text='DRIVING WINDOW'
             color='orange'
@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
   },
   toolbar: {
     height: 48,
-    backgroundColor: 'red'
+    backgroundColor: '#ee3124'
   },
   buttons: {
     flexDirection: 'row'
