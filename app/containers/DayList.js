@@ -15,52 +15,25 @@ import React, {
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { Actions } from 'react-native-router-flux';
 import TabView from 'react-native-scrollable-tab-view';
-import { fonts, colors, bstyles, onepixel } from '../Styles';
+import { fonts, colors, bstyles } from '../Styles';
 import StatusButton from '../components/StatusButton';
 import TextCounter from '../components/TextCounter';
 import Toolbar from '../components/Toolbar';
 import IconItem from '../components/IconItem';
 import Today from './Today';
-import moment from 'moment';
+import DayList from './DayList';
 
 function durationFormat(d) {
   return d.format('s hh:mm:ss').split(' ')[1];
 }
 
-//import { Card } from 'react-native-material-design';
-import Day from '../components/Day';
-
-class Card extends Component {
-  render() {
-    const { elevation=1, children, actions=[1] } = this.props;
-    return (
-      <View style={[styles.card, {elevation}]}>
-      { children }
-      {
-        actions.length
-          ? (
-            <View style={[styles.actions, {}]}>
-              <IconItem icon='check' onPress={() => {}} />
-            </View>
-          )
-          : null
-      }
-      </View>
-    )
-  }
-}
 
 class DayList extends Component {
   render() {
     return (
-      <ScrollView style={[bstyles.container, {padding: 8, backgroundColor: '#f0f0f0'}]}>
-      {
-        Array.from(Array(8), (x, k) => moment()).map((day, i) => {
-          return <Card><Day /></Card>
-        })
-      }
-        <View style={{height: 20}}/>
-      </ScrollView>
+      <View style={[bstyles.container]}>
+        <Text>8 DAYS</Text>
+      </View>
     )
   }
 }
@@ -103,13 +76,22 @@ export default class MainPage extends Component {
           tabBarInactiveTextColor='orange'
           style={{paddingBottom: 2}}
         >
-          <DayList tabLabel='8 DAYS' {...this.props} />
           <Today tabLabel='TODAY' {...this.props} />
+          <DayList tabLabel='8 DAYS' {...this.props} />
         </TabView>
       </View>
     );
   }
 }
+
+//class DurationCounter extends Component {
+//  render() {
+//    const { duration, maxDuration=duration()...props } = this.props;
+//    return (
+//      <TextCounter {...props} value={ durationFormat(duration) } />
+//    )
+//  }
+//}
 
 const styles = StyleSheet.create({
   row: {
@@ -120,21 +102,5 @@ const styles = StyleSheet.create({
   },
   rowText: {
     color: 'white',
-  },
-  card: {
-     borderRadius: 2,
-     // Check Card implementation
-     elevation: 2,
-     backgroundColor: 'white',
-     marginBottom: 8,
-     paddingTop: 8,
-     paddingHorizontal: 16,
-  },
-  actions: {
-    height: 48,
-    marginHorizontal: -16,
-    borderTopWidth: onepixel,
-    borderTopColor: 'gray',
-    backgroundColor: colors.main
   }
 });
