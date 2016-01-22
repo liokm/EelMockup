@@ -32,11 +32,10 @@ export default class Day extends Component {
             <Graph />
           </WidthWrapper>
           <View style={[bstyles.center, {justifyContent: 'space-between', alignSelf: 'stretch'}]}>
-            <View style={bstyles.container}><Text style={[fonts.small]}>02:03</Text></View>
-            <View style={bstyles.container}><Text style={[fonts.small]}>02:03</Text></View>
-            <View style={bstyles.container}><Text style={[fonts.small]}>02:03</Text></View>
-            <View style={bstyles.container}><Text style={[fonts.small]}>02:03</Text></View>
-            <View style={bstyles.container, bstyles.d} />
+          {
+            [1,2,3,4].map(() => <View style={bstyles.container}><Text style={[fonts.small]}>02:03</Text></View>)
+          }
+          <View style={bstyles.container, bstyles.d} />
           </View>
         </View>
       </View>
