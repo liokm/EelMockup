@@ -26,9 +26,6 @@ function durationFormat(d) {
   return d.format('s hh:mm:ss').split(' ')[1];
 }
 
-const BG_PATH = "M3.00191459,1 C1.34400294,1 0,2.34785514 0,4.00550479 L0,217.994495 C0,219.65439 1.34239483,221 3.00191459,221 L276.998085,221 C278.655997,221 280,219.652145 280,217.994495 L280,4.00550479 C280,2.34561033 278.657605,1 276.998085,1 L3.00191459,1 Z M3.00191459,1";
-const RING_ONE_PATH = "M84,121 C130.391921,121 168,106.673113 168,89 C168,71.3268871 130.391921,57 84,57 C37.6080787,57 0,71.3268871 0,89 C0,106.673113 37.6080787,121 84,121 Z M84,121";
-
 
 class DayList extends Component {
   render() {
@@ -49,12 +46,13 @@ export default class MainPage extends Component {
     return (
       <View style={bstyles.container}>
         <Toolbar
-          logo={require('../img/logo.png')}
-          title='EROAD DRIVER'
-          onPress={null}
+          //logo={require('../img/logo.png')}
+          icon='menu'
+          onPress={openMenu}
+          subtitle='EROAD DRIVER'
           actions={[
             //{logo: require('../img/logo.png') },
-            {icon: 'menu', onPress: openMenu },
+            //{icon: 'menu', onPress: openMenu },
           ]}
         />
 
@@ -77,22 +75,13 @@ export default class MainPage extends Component {
           tabBarInactiveTextColor='orange'
           style={{paddingBottom: 2}}
         >
-          <Today tabLabel='TODAY' {...this.props} style={{height: 100}}/>
+          <Today tabLabel='TODAY' {...this.props} />
           <DayList tabLabel='8 DAYS' {...this.props} />
         </TabView>
       </View>
     );
   }
 }
-
-//class DurationCounter extends Component {
-//  render() {
-//    const { duration, maxDuration=duration()...props } = this.props;
-//    return (
-//      <TextCounter {...props} value={ durationFormat(duration) } />
-//    )
-//  }
-//}
 
 const styles = StyleSheet.create({
   row: {

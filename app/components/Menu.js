@@ -44,7 +44,7 @@ export default class Menu extends Component {
     return (
       <DrawerLayoutAndroid
         drawerWidth={width}
-        drawerPosition={DrawerLayoutAndroid.positions.Right}
+        drawerPosition={DrawerLayoutAndroid.positions.Left}
         renderNavigationView={menu}
         ref={'DRAWER'}
       >

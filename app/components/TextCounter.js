@@ -4,19 +4,24 @@ import React, {
   View,
   Text,
   ToastAndroid,
-  PixelRatio
 } from 'react-native';
+import { fonts, colors, bstyles, onepixel } from '../Styles';
 
 export default class TextCounter extends Component {
   render() {
     const { text, value, ratio, color } = this.props;
     return (
-      <View style={{flex: 1, marginHorizontal: 12}}>
-        <Text style={styles.text}>{ text }</Text>
-        <Text style={styles.timer}>{ value }</Text>
-        <View style={styles.container}>
-          <View style={[styles.progress, {flex: ratio, backgroundColor: color}]}></View>
-          <View style={[styles.progressBg, {flex: 1 - ratio}]}></View>
+      <View style={[bstyles.container, bstyles.row, {paddingVertical: 8}]}>
+        <View style={[bstyles.container, {alignSelf: 'stretch', justifyContent: 'center', alignItems: 'flex-end'}]}>
+          <Text style={[fonts.caption, {}]}>{ text }</Text>
+          <Text style={[fonts.small, {color: 'gray'}]}>REMAINING</Text>
+        </View>
+        <View style={[bstyles.container_, {flex: .5, marginLeft: 8}]}>
+          <Text style={fonts.subheading, {textAlign: 'center'}}>{ value }</Text>
+          <View style={[bstyles.container_, bstyles.row]}>
+            <View style={[styles.progress, {flex: ratio, backgroundColor: color}]}></View>
+            <View style={[styles.progressBg, {flex: 1 - ratio}]}></View>
+          </View>
         </View>
       </View>
     );
@@ -24,24 +29,15 @@ export default class TextCounter extends Component {
 }
 
 const progressHeight = 5;
+
 const styles = StyleSheet.create({
-  container: {
-    flexDirection: 'row',
-  },
-  text: {
-    textAlign: 'center',
-  },
-  timer: {
-    textAlign: 'center',
-    fontSize: 20
-  },
   progress: {
     height: progressHeight,
     borderRadius: progressHeight,
   },
   progressBg: {
     backgroundColor: 'gray',
-    height: 1 / PixelRatio.get(),
+    height: onepixel,
     marginVertical: progressHeight / 2,
   },
 });

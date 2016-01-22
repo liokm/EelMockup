@@ -1,5 +1,6 @@
 import React, {
-  StyleSheet
+  StyleSheet,
+  PixelRatio,
 } from 'react-native';
 
 export const bstyles = StyleSheet.create({
@@ -8,6 +9,19 @@ export const bstyles = StyleSheet.create({
   },
   row: {
     flexDirection: 'row'
+  },
+  center: {
+    alignItems: 'center',
+  },
+  absolute: {
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    bottom: 0,
+    left: 0,
+  },
+  d: {
+    backgroundColor: '#f0f0f0'
   }
 });
 
@@ -15,7 +29,12 @@ export const colors = {
   main: '#ee3124'
 }
 
+export const onepixel = 1 / PixelRatio.get();
+
 export const fonts = StyleSheet.create({
+  small: {
+    fontSize: 8
+  },
   headline: {
     fontSize: 24
   },

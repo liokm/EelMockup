@@ -5,9 +5,6 @@ import React, {
 import { Surface, Shape, Path, Group } from 'ReactNativeART';
 import { bstyles, fonts, onepixel } from '../Styles';
 
-
-// onRotate() => Measure (async)
-// onLayout() => pass in width
 const H = 24;
 const V = 4;
 export default class Graph extends Component {
@@ -50,12 +47,12 @@ export default class Graph extends Component {
               .move(b4, 0).line(0, -b4).move(0, b4);
           }
         bg.push(
-          <Shape stroke="#ccc" strokeWidth={onepixel} d={path} />
+          <Shape key={row * H + col} stroke="#ccc" strokeWidth={onepixel} d={path} />
         )
       }
     }
     bg.push(
-      <Shape stroke="#ccc" strokeWidth={onepixel} d={Path().moveTo(H * block, 0).line(0, V * block).line(-H * block, 0)} />
+      <Shape key={H * V} stroke="#ccc" strokeWidth={onepixel} d={Path().moveTo(H * block, 0).line(0, V * block).line(-H * block, 0)} />
     );
 
     return (
