@@ -11,19 +11,19 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 
 export default class IconItem extends Component {
   renderIcon() {
-    const { logo, icon, count } = this.props;
+    const { logo, icon, count, style={} } = this.props;
     return (
       <View style={styles.iconWrapper}>
       {
         logo
-          ? <Image source={logo} style={styles.logo} />
-          : <Icon name={icon} size={24} style={styles.icon} />
+          ? <Image source={logo} style={[styles.logo, style.logo]} />
+          : <Icon name={icon} size={24} style={[styles.icon, style.icon]} />
       }
       {
         count
           ? (
-            <View style={styles.countWrapper}>
-              <Text style={styles.count}>{ count }</Text>
+            <View style={[styles.countWrapper, style.countWrapper]}>
+              <Text style={[styles.count, style.count]}>{ count }</Text>
             </View>
           )
           : null
