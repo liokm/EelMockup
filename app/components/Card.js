@@ -7,21 +7,19 @@ import React, {
 import { fonts, colors, bstyles, onepixel } from '../Styles';
 import IconItem from '../components/IconItem';
 
+// TODO use react-native-material-design
 export default class Card extends Component {
-  renderActions(actions) {
-    return actions.map(({icon, title, onPress}) => <IconItem icon={icon} onPress={onPress} />)
-  }
   render() {
-    const { elevation=2, children, actions=[{icon: 'menu'}, {icon: 'menu'}] } = this.props;
+    const { elevation=2, children, actions=[] } = this.props;
     return (
       <View style={[styles.card, {elevation}]}>
       { children }
       {
         actions.length
           ? (
-            <View style={[styles.actions, {}]}>
+            <View style={[styles.actions, bstyles.row, {}]}>
             {
-              actions.map(({icon, title, onPress=()=>{}}) => <IconItem icon={icon} onPress={onPress} />)
+              actions.map((action, i) => <IconItem key={i} {...action} />)
             }
             </View>
           )
@@ -47,6 +45,7 @@ const styles = StyleSheet.create({
     marginHorizontal: -16,
     borderTopWidth: onepixel,
     borderTopColor: 'gray',
+    justifyContent: 'flex-end',
     //backgroundColor: colors.main,
     //borderBottomLeftRadius: 2,
     //borderBottomRightRadius: 2,
