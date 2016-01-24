@@ -3,6 +3,7 @@ import React, {
   WebView,
   ToolbarAndroid,
   ProgressBar,
+  NetInfo
 } from 'react-native';
 import { createStore, applyMiddleware, combineReducers, bindActionCreators } from 'redux';
 import { Provider, connect } from 'react-redux';
@@ -56,6 +57,15 @@ const reducers = {
         return state;
     }
   },
+  online(state='true', action) {
+    switch (action.type) {
+      case 'NETINFO_CHANGED':
+        //return action.connectivityType.toLowerCase() != 'none';
+        return action.connectivityType;
+      default:
+        return state;
+    }
+  }
 };
 
 const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
@@ -125,7 +135,10 @@ function select(state) {
     dimension: getDimension(state.orientation),
     ruleset: rulesets.get(state.rulesetName),
     currentState: state.currentState,
-    drivingState: getDrivingState(state)
+    drivingState: getDrivingState(state),
+    // TODO logic for state.online
+    //onlineText: (online => online ? 'ONLINE' : 'OFFLINE')(state.online),
+    onlineText: (online => online)(state.online),
   }
 }
 
@@ -173,6 +186,21 @@ class App extends Component {
 }
 
 export default class Root extends Component {
+  handleConnectionInfoChange(e) {
+    store.dispatch({type: 'NETINFO_CHANGED', connectivityType: e});
+  }
+  componentDidMount() {
+    NetInfo.addEventListener(
+      'change',
+      this.handleConnectionInfoChange
+    );
+  }
+  componentWillUnmount() {
+    NetInfo.removeEventListener(
+      'change',
+      this.handleConnectionInfoChange
+    );
+  }
   render() {
     return (
       <Provider store={store}>
