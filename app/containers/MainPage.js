@@ -28,38 +28,25 @@ function durationFormat(d) {
 }
 
 //import { Card } from 'react-native-material-design';
+import Card from '../components/Card';
 import Day from '../components/Day';
 
-class Card extends Component {
-  render() {
-    const { elevation=1, children, actions=[1] } = this.props;
-    return (
-      <View style={[styles.card, {elevation}]}>
-      { children }
-      {
-        actions.length
-          ? (
-            <View style={[styles.actions, {}]}>
-              <IconItem icon='check' onPress={() => {}} />
-            </View>
-          )
-          : null
-      }
-      </View>
-    )
-  }
-}
 
 class DayList extends Component {
   render() {
+    const now = moment();
+    const actions = [
+      {icon: 'edit', onPress: () => {}, style: {icon: {color: 'gray'}}},
+      {icon: 'check', onPress: () => {}, style: {icon: {color: 'gray'}}}
+    ];
     return (
-      <ScrollView style={[bstyles.container, {padding: 8, backgroundColor: '#f0f0f0'}]}>
+      <ScrollView style={[bstyles.container, {padding: 8, backgroundColor: '#eee'}]}>
       {
-        Array.from(Array(8), (x, k) => moment()).map((day, i) => {
-          return <Card><Day /></Card>
+        Array.from(Array(8), (x, k) => now.add(-1, 'day').clone()).map((day, i) => {
+          return <Card key={i} actions={actions}><Day day={day} style={{title: { alignItems: 'flex-start' }}} /></Card>
         })
       }
-        <View style={{height: 20}}/>
+        <View style={{height: 8}}/>
       </ScrollView>
     )
   }
@@ -68,7 +55,7 @@ class DayList extends Component {
 export default class MainPage extends Component {
   render() {
     // TODO Totally from ruleset configurations
-    const { dispatch, ruleset, driver={ name: 'Alan Turing', vehicle: 'FQU819' }, online, currentState, drivingState: { drivingWindowLeft, drivingTimeLeft, dutyTimeLeft } } = this.props;
+    const { dispatch, ruleset, driver={ name: 'Alan Turing', vehicle: 'FQU819' }, online, onlineText, currentState, drivingState: { drivingWindowLeft, drivingTimeLeft, dutyTimeLeft } } = this.props;
     const { openMenu } = this.props;
     //const { dimension: { width, height } } = this.props;
     return (
@@ -92,7 +79,7 @@ export default class MainPage extends Component {
           </View>
           <View style={[styles.row, {paddingLeft: 0}]}>
             <IconItem icon='assignment' count={3} onPress={() => {}} />
-            <Text style={[fonts.caption, {color: 'white'}]}>{ online? 'ONLINE': 'OFFLINE' }</Text>
+            <Text style={[fonts.caption, {color: 'white'}]}>{ onlineText }</Text>
           </View>
         </View>
 
@@ -103,8 +90,8 @@ export default class MainPage extends Component {
           tabBarInactiveTextColor='orange'
           style={{paddingBottom: 2}}
         >
-          <DayList tabLabel='8 DAYS' {...this.props} />
           <Today tabLabel='TODAY' {...this.props} />
+          <DayList tabLabel='8 DAYS' {...this.props} />
         </TabView>
       </View>
     );
@@ -121,20 +108,4 @@ const styles = StyleSheet.create({
   rowText: {
     color: 'white',
   },
-  card: {
-     borderRadius: 2,
-     // Check Card implementation
-     elevation: 2,
-     backgroundColor: 'white',
-     marginBottom: 8,
-     paddingTop: 8,
-     paddingHorizontal: 16,
-  },
-  actions: {
-    height: 48,
-    marginHorizontal: -16,
-    borderTopWidth: onepixel,
-    borderTopColor: 'gray',
-    backgroundColor: colors.main
-  }
 });

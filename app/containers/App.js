@@ -12,6 +12,7 @@ import { Actions, Router, Route, Schema, Animations, TabBar } from 'react-native
 //import Orientation from 'react-native-orientation';
 import Today from './Today';
 import MainPage from './MainPage';
+import DayView from './DayView';
 import { wrapMenu } from '../components/Menu';
 import Toolbar from '../components/Toolbar';
 //import Terms from './Terms';
@@ -146,6 +147,7 @@ const connected = [
   wrapMenu(MainPage), // wrappedMainPage
   Today,
   Launch,
+  DayView,
   //Terms,
 ].reduce((o, x) => {
   o[x.name || x.displayName] = connect(select)(x)
@@ -177,9 +179,10 @@ class App extends Component {
         <Schema name="default" sceneConfig={ Navigator.SceneConfigs.FloatFromRight} />
         <Route name="launch" component={connected.Launch} initial={false} title="Launch" />
         <Route name="today" component={connected.Today} initial={false} title="Today" sceneConfig={ Navigator.SceneConfigs.FloatFromBottom } />
-        <Route name="main" component={connected.WrappedMainPage} initial={true} title="" sceneConfig={ Navigator.SceneConfigs.FloatFromBottom } />
+        <Route name="main" component={connected.WrappedMainPage} initial={!true} title="" sceneConfig={ Navigator.SceneConfigs.FloatFromBottom } />
         <Route name="terms" component={() => <WebPage title='Terms & Conditions' url='https://help.eroad.com/nz/driver-app/logbook/nz-logbook-overview/' />} />
         <Route name="help" component={() => <WebPage title='Help' url='https://help.eroad.com/nz/driver-app/logbook/nz-logbook-overview/' />} />
+        <Route name="dayview" component={connected.DayView} initial={true} sceneConfig={ Navigator.SceneConfigs.FloatFromRight } />
       </Router>
     );
   }
