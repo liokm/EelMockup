@@ -50,16 +50,7 @@ export default class DayView extends Component {
         <View style={bstyles.container}>
         <ScrollView style={{}}>
         {
-          [
-            1,
-            2,
-            1,
-            2,
-            1,
-            2,
-            1,
-            2,
-          ].map(e => <EventRow {...e} />)
+          [ 1, 2, 1, 2, 1, 2, 1, 2, ].map((e, i) => <EventRow key={i} />)
         }
         </ScrollView>
         <Button style={{wrapper: Button.styles.rightTop}}/>
