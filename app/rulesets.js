@@ -29,6 +29,13 @@ RuleSet.types = [
   { name: 'D', icon: 'local-shipping', text: "DRIVING" },
   { name: 'ON', icon: 'access-time', text: "ON DUTY" }
 ]
+RuleSet.getByType = function(name) {
+  for (let x of this.types) {
+    if (x.name == name) {
+      return x;
+    }
+  }
+}
 RuleSet.labels = Array.from(Array(24 + 1), (x, k) => k)
 RuleSet.getName = function() {
   // Dear IE does not support func.name
