@@ -30,6 +30,7 @@ function durationFormat(d) {
 //import { Card } from 'react-native-material-design';
 import Card from '../components/Card';
 import Day from '../components/Day';
+import Button from '../components/Button';
 
 
 class DayList extends Component {
@@ -40,14 +41,17 @@ class DayList extends Component {
       {icon: 'check', onPress: () => {}, style: {icon: {color: 'gray'}}}
     ];
     return (
-      <ScrollView style={[bstyles.container, {padding: 8, backgroundColor: '#eee'}]}>
-      {
-        Array.from(Array(8), (x, k) => now.add(-1, 'day').clone()).map((day, i) => {
-          return <Card key={i} actions={actions}><Day day={day} style={{title: { alignItems: 'flex-start' }}} /></Card>
-        })
-      }
-        <View style={{height: 8}}/>
-      </ScrollView>
+      <View style={bstyles.container}>
+        <ScrollView style={[bstyles.container, {padding: 8, backgroundColor: '#eee'}]}>
+        {
+          Array.from(Array(8), (x, k) => now.add(-1, 'day').clone()).map((day, i) => {
+            return <Card key={i} actions={actions}><Day day={day} style={{title: { alignItems: 'flex-start' }}} /></Card>
+          })
+        }
+          <View style={{height: 8}}/>
+        </ScrollView>
+        <Button style={{wrapper: Button.styles.rightTop}}/>
+      </View>
     )
   }
 }
