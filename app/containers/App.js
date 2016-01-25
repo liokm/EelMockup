@@ -179,10 +179,10 @@ class App extends Component {
         <Schema name="default" sceneConfig={ Navigator.SceneConfigs.FloatFromRight} />
         <Route name="launch" component={connected.Launch} initial={false} title="Launch" />
         <Route name="today" component={connected.Today} initial={false} title="Today" sceneConfig={ Navigator.SceneConfigs.FloatFromBottom } />
-        <Route name="main" component={connected.WrappedMainPage} initial={!true} title="" sceneConfig={ Navigator.SceneConfigs.FloatFromBottom } />
+        <Route name="main" component={connected.WrappedMainPage} initial={true} title="" sceneConfig={ Navigator.SceneConfigs.FloatFromBottom } />
         <Route name="terms" component={() => <WebPage title='Terms & Conditions' url='https://help.eroad.com/nz/driver-app/logbook/nz-logbook-overview/' />} />
         <Route name="help" component={() => <WebPage title='Help' url='https://help.eroad.com/nz/driver-app/logbook/nz-logbook-overview/' />} />
-        <Route name="dayview" component={connected.DayView} initial={true} sceneConfig={ Navigator.SceneConfigs.FloatFromRight } />
+        <Route name="dayview" component={connected.DayView} initial={false} sceneConfig={ Navigator.SceneConfigs.FloatFromRight } />
       </Router>
     );
   }

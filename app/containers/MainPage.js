@@ -36,7 +36,7 @@ class DayList extends Component {
   render() {
     const now = moment();
     const actions = [
-      {icon: 'edit', onPress: () => {}, style: {icon: {color: 'gray'}}},
+      {icon: 'edit', onPress: Actions.dayview, style: {icon: {color: 'gray'}}},
       {icon: 'check', onPress: () => {}, style: {icon: {color: 'gray'}}}
     ];
     return (
