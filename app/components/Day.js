@@ -17,28 +17,32 @@ export class LabeledGraph extends Component {
       style: {label: labelStyle, graph: graphStyle} = {},
       ...props
     } = this.props;
-    // Left + Right: 5 blocks, Center: (24 + 1) blocks
+    // Left + Right: (4 + 1) blocks (1 block for placeholder), Center: (24 + 1) blocks
     const block = width / 30;
+    const height = block * (4 + 1);
     const sideWidth = 2.5 * block;
+    const graphWidth = width - 2 * sideWidth;
     // XXX Experimental value
     const fontSize = sideWidth / 3.5;
     return (
       <View style={[bstyles.row, {alignItems: 'stretch'}]}>
-        <View style={[bstyles.center, styles.side]}>
+        <View style={[bstyles.center, styles.side, {width: sideWidth, height}]}>
         {
           ['OFF', 'SB', 'D', 'ON', ''].map(
-            (x, i) => <View key={i} style={bstyles.container}><Text style={[{fontSize, labelStyle}]}>{x}</Text></View>
+            (x, i) => <Text key={i} style={[{fontSize}, labelStyle]}>{x}</Text>
           )
         }
         </View>
-        <WidthWrapper>
-          <Graph style={graphStyle} {...props} />
-        </WidthWrapper>
-        <View style={[bstyles.center, styles.side]}>
+        {/* No need to measure twice
+          <WidthWrapper>
+            <Graph />
+          </WidthWrapper>
+        */}
+        <Graph width={graphWidth} style={graphStyle} {...props} />
+        <View style={[bstyles.center, styles.side, {width: sideWidth, height}]}>
         {
-          [1,2,3,4].map((_, i) => <View key={i} style={bstyles.container}><Text style={[{fontSize, labelStyle}]}>02:03</Text></View>)
+          ['00:00', '00:00', '00:00', '00:00', ''].map((x, i) => <Text key={i} style={[{fontSize}, labelStyle]}>{x}</Text>)
         }
-        <View style={bstyles.container, bstyles.d} />
         </View>
       </View>
     );
@@ -47,7 +51,7 @@ export class LabeledGraph extends Component {
 
 export default class Day extends Component {
   renderTitle() {
-    const { showTitle=true, day, style: {titleText: titleTextStyle, title: titleStyle} = {} } = this.props;
+    const { showTitle=true, day=moment(), style: {titleText: titleTextStyle, title: titleStyle} = {} } = this.props;
     if (!showTitle) {
       return;
     }
