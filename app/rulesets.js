@@ -24,10 +24,10 @@ class RuleSet {
 }
 
 RuleSet.types = [
-  { name: 'OFF', icon: 'local-cafe', text: "OFF DUTY" },
-  { name: 'SB', icon: 'snooze', text: "SLEEPER" },
-  { name: 'D', icon: 'local-shipping', text: "DRIVING" },
-  { name: 'ON', icon: 'access-time', text: "ON DUTY" }
+  { name: 'OFF', icon: 'local-cafe', text: 'OFF DUTY' },
+  { name: 'SB', icon: 'snooze', text: 'SLEEPER' },
+  { name: 'D', icon: 'local-shipping', text: 'DRIVING' },
+  { name: 'ON', icon: 'access-time', text: 'ON DUTY' }
 ]
 RuleSet.getByType = function(name) {
   for (let x of this.types) {

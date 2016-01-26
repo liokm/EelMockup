@@ -13,6 +13,12 @@ export const bstyles = StyleSheet.create({
   center: {
     alignItems: 'center',
   },
+  rcenter: {
+    justifyContent: 'center',
+  },
+  right: {
+    alignItems: 'flex-end',
+  },
   absolute: {
     position: 'absolute',
     top: 0,
@@ -22,11 +28,18 @@ export const bstyles = StyleSheet.create({
   },
   d: {
     backgroundColor: '#f0f0f0'
+  },
+  panel: {
+    flex: 1,
+    padding: 16,
   }
 });
 
 export const colors = {
-  main: '#ee3124'
+  main: '#ee3124',
+  main2: '#fff',
+  bg: '#74d9cd',
+  bg2: '#57d1c2',
 }
 
 export const onepixel = 1 / PixelRatio.get();
@@ -73,4 +86,10 @@ export const fonts = StyleSheet.create({
     fontSize: 112,
     fontFamily: 'roboto light',
   },
+});
+
+export const theme = StyleSheet.create({
+  btnText: {
+    color: colors.bg2
+  }
 });

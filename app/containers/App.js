@@ -13,6 +13,7 @@ import { Actions, Router, Route, Schema, Animations, TabBar } from 'react-native
 import Today from './Today';
 import MainPage from './MainPage';
 import DayView from './DayView';
+import Status from './Status';
 import { wrapMenu } from '../components/Menu';
 import Toolbar from '../components/Toolbar';
 //import Terms from './Terms';
@@ -148,6 +149,7 @@ const connected = [
   Today,
   Launch,
   DayView,
+  Status,
   //Terms,
 ].reduce((o, x) => {
   o[x.name || x.displayName] = connect(select)(x)
@@ -173,7 +175,7 @@ class WebPage extends Component {
 }
 
 const initial = 'main';
-//const initial = 'dayview';
+//const initial = 'status';
 class App extends Component {
   render() {
     return (
@@ -185,6 +187,7 @@ class App extends Component {
         <Route name="terms" component={() => <WebPage title='Terms & Conditions' url='https://help.eroad.com/nz/driver-app/logbook/nz-logbook-overview/' />} />
         <Route name="help" component={() => <WebPage title='Help' url='https://help.eroad.com/nz/driver-app/logbook/nz-logbook-overview/' />} />
         <Route name="dayview" component={connected.DayView} initial={initial=='dayview'} sceneConfig={ Navigator.SceneConfigs.FloatFromRight } />
+        <Route name="status" component={connected.Status} initial={initial=='status'} sceneConfig={ Navigator.SceneConfigs.FadeAndroid } />
       </Router>
     );
   }

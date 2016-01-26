@@ -8,6 +8,7 @@ import React, {
   View,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import { bstyles, fonts, theme } from '../Styles';
 
 export default class Button extends Component {
   render() {
@@ -30,8 +31,32 @@ export default class Button extends Component {
   }
 }
 
+// XXX Simply use a global theme setting
+export class DialogButton extends Component {
+  render() {
+    const { onPress=() => {}, text, style: {text: textStyle, wrapper: wrapperStyle} = {} } = this.props;
+    return (
+      <TouchableNativeFeedback
+        background={TouchableNativeFeedback.SelectableBackgroundBorderless()}
+        delayPressIn={0}
+        onPress={onPress}
+      >
+        <View style={[bstyles.center, bstyles.rcenter, styles.dbtnWrapper, theme.btn , wrapperStyle]}>
+          <Text style={[fonts.button, theme.btnText, textStyle]}>{ text.toUpperCase() }</Text>
+        </View>
+      </TouchableNativeFeedback>
+    );
+  }
+}
+
 const DEFAULT_WIDTH = 56;
 const styles = StyleSheet.create({
+  dbtnWrapper: {
+    minWidth: 64,
+    paddingHorizontal: 8,
+    height: 36,
+    marginRight: 8,
+  },
   button: {
     alignItems: 'center',
     justifyContent: 'center',

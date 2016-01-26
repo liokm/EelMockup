@@ -38,9 +38,13 @@ export default class Toolbar extends Component {
         }
         { this.props.children }
         {
-          <View style={styles.actions}>
-          { actions.map((action, i) => <IconItem key={i} {...action} />) }
-          </View>
+          actions.length
+            ? (
+              <View style={styles.actions}>
+              { actions.map((action, i) => <IconItem key={i} {...action} />) }
+              </View>
+            )
+            : null
         }
       </View>
     );
@@ -56,7 +60,7 @@ const styles = StyleSheet.create({
     //justifyContent: 'center',
   },
   actions: {
-    flex: 1,
+    //flex: 1,
     flexDirection: 'row',
     justifyContent: 'flex-end',
   },
