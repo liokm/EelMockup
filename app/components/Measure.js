@@ -19,7 +19,6 @@ export class WidthWrapper extends Component {
   render() {
     const { width, customizedStyle } = this.state;
     const { style } = this.props;
-    console.log(style);
     return (
       <View onLayout={ e => this.handleLayout(e) } style={[bstyles.container, style]} >
       {
