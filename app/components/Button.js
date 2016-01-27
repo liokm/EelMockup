@@ -63,11 +63,16 @@ const styles = StyleSheet.create({
     backgroundColor: '#74d9cd',
   },
   icon: {
-     color: 'white',
+    color: 'white',
   },
   rightTop: {
     position: 'absolute',
     top: -DEFAULT_WIDTH / 2,
+    right: 16,
+  },
+  rightBottom: {
+    position: 'absolute',
+    bottom: DEFAULT_WIDTH / 2,
     right: 16,
   },
 });

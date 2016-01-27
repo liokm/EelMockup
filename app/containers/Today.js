@@ -30,7 +30,7 @@ export default class Today extends Component {
     const { dispatch, ruleset, currentState, drivingState: { drivingWindowLeft, drivingTimeLeft, dutyTimeLeft } } = this.props;
     return (
       <View style={[{paddingHorizontal: 16}]}>
-      <View style={[bstyles.row, bstyles.center, {paddingTop: 16}]}>
+      <View style={[bstyles.row, bstyles.center, {paddingTop: 16, marginBottom: 16}]}>
         <WidthWrapper style={{flex: 1.25}}>
           <Counter />
         </WidthWrapper>

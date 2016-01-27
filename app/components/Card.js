@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     marginHorizontal: -16,
     borderTopWidth: onepixel,
     borderTopColor: 'gray',
-    justifyContent: 'flex-end',
+    //justifyContent: 'flex-end',
     //backgroundColor: colors.main,
     //borderBottomLeftRadius: 2,
     //borderBottomRightRadius: 2,

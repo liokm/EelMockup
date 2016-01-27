@@ -59,8 +59,8 @@ export default class Menu extends Component {
 const styles = StyleSheet.create({
   menu: {
     flex: 1,
-    backgroundColor: 'black',
-    //backgroundColor: 'rgba(255, 255, 255, 0.85)',
+    //backgroundColor: 'black',
+    backgroundColor: 'rgba(255, 255, 255, 0.975)',
     paddingHorizontal: 16,
     paddingTop: 8,
   },

@@ -1,4 +1,2 @@
 rootProject.name = 'EelMockup'
 
-include ':Orientation', ':app'
-project(':Orientation').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-orientation/android')

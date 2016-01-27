@@ -172,7 +172,7 @@ var styles = StyleSheet.create({
   fieldLabel: {
     height: 12,
     fontSize: 10,
-    color: '#ccc'
+    color: 'gray'
   },
   fieldContainer: {
     flex: 1,

@@ -67,8 +67,41 @@ const reducers = {
       default:
         return state;
     }
+  },
+  geo(state={isFetching: false}, action) {
+    switch (action.type) {
+      case REQUEST_GEO:
+        return {...state, isFetching: true};
+      case RECEIVE_GEO:
+        return {...state, ...action.data, isFetching: false};
+      default:
+        return state;
+    }
   }
 };
+
+const REQUEST_GEO = 'REQUEST_GEO';
+const RECEIVE_GEO = 'RECEIVE_GEO';
+
+function fetchGeo() {
+  return dispatch => {
+    navigator.geolocation.getCurrentPosition(
+      position => {
+        ToastAndroid.show(String(position), ToastAndroid.LONG)
+        //fetch( http://maps.googleapis.com/maps/api/geocode/json?latlng=40.714224,-73.961452&sensor=true_or_false
+
+        //)
+      },
+      error => ToastAndroid.show(String(error), ToastAndroid.LONG),
+      {
+        enableHighAccuracy: true,
+        timeout: 20000,
+        maximumAge: 2000
+      }
+    )
+    return fetch()
+  }
+}
 
 const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
 const reducer = combineReducers(reducers);
@@ -187,7 +220,10 @@ class App extends Component {
         <Route name="terms" component={() => <WebPage title='Terms & Conditions' url='https://help.eroad.com/nz/driver-app/logbook/nz-logbook-overview/' />} />
         <Route name="help" component={() => <WebPage title='Help' url='https://help.eroad.com/nz/driver-app/logbook/nz-logbook-overview/' />} />
         <Route name="dayview" component={connected.DayView} initial={initial=='dayview'} sceneConfig={ Navigator.SceneConfigs.FloatFromRight } />
-        <Route name="status" component={connected.Status} initial={initial=='status'} sceneConfig={ Navigator.SceneConfigs.FadeAndroid } />
+        <Route name="status" component={connected.Status} initial={initial=='status'}
+          //sceneConfig={ Navigator.SceneConfigs.FadeAndroid }
+          sceneConfig={ Navigator.SceneConfigs.FloatFromRight }
+        />
       </Router>
     );
   }

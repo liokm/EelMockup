@@ -35,7 +35,7 @@ export default class MenuItem extends Component {
 const styles = StyleSheet.create({
   item: {
     flexDirection: 'row',
-    borderBottomColor: 'white',
+    borderBottomColor: 'gray',
     borderBottomWidth: 1 / PixelRatio.get(),
     alignItems: 'center',
     overflow: 'visible',
@@ -46,6 +46,6 @@ const styles = StyleSheet.create({
     marginRight: 12,
   },
   text: {
-    color: 'white'
+    //color: 'white'
   }
 });

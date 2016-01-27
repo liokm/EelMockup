@@ -20,6 +20,7 @@ export default class TextField extends Component {
         //underlineColorAndroid={colors.bg2}
         //returnKeyType='Next'
         style={{focusLabel: {color: colors.bg2}}}
+        placeholderTextColor='#aaa'
         {...this.props}
       />
     );

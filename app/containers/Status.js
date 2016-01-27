@@ -8,6 +8,8 @@ import React, {
   View,
   WebView,
   TextInput,
+  ScrollView,
+  ToastAndroid,
 } from 'react-native';
 import rulesets from '../rulesets';
 import { duration } from 'moment';
@@ -16,13 +18,64 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import { bstyles, colors, onepixel } from '../Styles';
 import Toolbar from '../components/Toolbar';
 import { DialogButton } from '../components/Button';
+import IconItem from '../components/IconItem';
+import TextField from '../components/TextField';
 
-// Current ruleset => statuses => specify which one to change to
+
 export default class Status extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+
   render() {
     const ruleset = rulesets.get();
     const { to=ruleset.getDefaultState() } = this.props;
     const state = ruleset.getByType(to);
+    // TODO ruleset => status => specific view logic bound to ruleset itself
+    const func = this[`render${ to }`];
+    return func ? func.call(this, ruleset, state) : <Text>TODO</Text>;
+  }
+
+  componentDidMount() {
+    navigator.geolocation.getCurrentPosition(
+      geolocation => {
+        const { timestamp, coords: {latitude, longitude} } = geolocation;
+        fetch(`http://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&sensor=true_or_false`)
+          .then(resp => resp.json())
+          .then(({results, status}) => {
+            if (status == 'OK' && results.length) {
+              this.setState({location: results[0].formatted_address});
+              //dispatch({
+              //  type: 'RECEIVE_GEO',
+              //  data: {
+              //    timestamp,
+              //    geolocation, // {timestamp, coords: {altitude, latitude, longitude, heading, ...}}
+              //    latitude,
+              //    longitude,
+              //    text: results[0].formatted_address
+              //  }
+              //})
+            }
+          })
+          .catch(e => ToastAndroid.show(e, ToastAndroid.LONG));
+      }
+    );
+  }
+
+  renderON(ruleset, state) {
+    return this.renderD(ruleset, state);
+  }
+
+  renderOFF(ruleset, state) {
+    return this.renderD(ruleset, state);
+  }
+
+  renderSB(ruleset, state) {
+    return this.renderD(ruleset, state);
+  }
+
+  renderD(ruleset, state) {
     return (
       <View style={[bstyles.container]}>
         <Toolbar subtitle={`Start ${ state.text }`}>
@@ -30,44 +83,40 @@ export default class Status extends Component {
             <DialogButton text='confirm' style={{text: {color: colors.main2}}} />
           </View>
         </Toolbar>
-        <View style={[bstyles.panel]}>
-          {/*
-          <Text>Foo</Text>
-          <TextInput
-            style={{height: 40, borderColor: 'gray', borderWidth: 1}}
-            placeholder
-            onChangeText={(text) => this.setState({text})}
-            value={this.state.text}
-          />
-          */}
-        <TextInput
-        style = {styles.titleInput}
-        returnKeyType = {"next"}
-        autoFocus = {true}
-        placeholder = "Title"
-        onSubmitEditing={(event) => {
-          this.refs.SecondInput.focus();
-        }}
-        />
-        <TextInput
-        ref='SecondInput'
-        style = {styles.descriptionInput}
-        multiline = {true}
-        maxLength = {200}
-        placeholder = "Description" />
-         <TextInput
-         placeholder='foobar'
-         placeholderTextColor='gray'
-         style={{borderWidth: onepixel, borderColor: 'gray'}}
-         />
-         <TextInput />
-         <TextInput />
-         <TextInput />
-         <TextInput />
-         <TextInput />
-         <TextInput />
-        </View>
+        <ScrollView style={[bstyles.panel]}>
+          <View>
+            <View style={[bstyles.container, bstyles.row]}>
+              <TextField
+                //autoFocus={true}
+                placeHolder='Location'
+                onSubmitEditing={() => this.refs.truckNumber.focus()}
+                value={this.state.location}
+                onChangeText={location => this.setState({ location })}
+              />
+              <IconItem icon='my-location' style={{icon: {color: 'gray'}}} onPress={() => {}} />
+            </View>
+          </View>
 
+          <TextField
+            ref='truckNumber'
+            onSubmitEditing={() => this.refs.distance.focus()}
+            placeHolder='Truck Number'
+            autoCapitalize='characters'
+          />
+
+          <TextField
+            ref='distance'
+            onSubmitEditing={() => this.refs.trailer.focus()}
+            placeHolder='Distance Reading'
+            keyboardType='numeric'
+          />
+
+          <TextField
+            ref='trailer'
+            placeHolder='Trailer'
+            autoCapitalize='characters'
+          />
+        </ScrollView>
       </View>
     )
   }

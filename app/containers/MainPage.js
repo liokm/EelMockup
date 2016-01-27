@@ -38,7 +38,7 @@ class DayList extends Component {
     const now = moment();
     const actions = [
       {icon: 'edit', onPress: Actions.dayview, style: {icon: {color: 'gray'}}},
-      {icon: 'check', onPress: () => {}, style: {icon: {color: 'gray'}}}
+      //{icon: 'check', onPress: () => {}, style: {icon: {color: 'gray'}}}
     ];
     return (
       <View style={bstyles.container}>
@@ -48,9 +48,9 @@ class DayList extends Component {
             return <Card key={i} actions={actions}><Day day={day} style={{title: { alignItems: 'flex-start' }}} /></Card>
           })
         }
-          <View style={{height: 8}}/>
+          <View style={{height: 36}}/>
         </ScrollView>
-        <Button style={{wrapper: Button.styles.rightTop}}/>
+        <Button style={{wrapper: Button.styles.rightBottom}}/>
       </View>
     )
   }
@@ -59,7 +59,7 @@ class DayList extends Component {
 export default class MainPage extends Component {
   render() {
     // TODO Totally from ruleset configurations
-    const { dispatch, ruleset, driver={ name: 'Alan Turing', vehicle: 'FQU819' }, online, onlineText, currentState, drivingState: { drivingWindowLeft, drivingTimeLeft, dutyTimeLeft } } = this.props;
+    const { dispatch, ruleset, driver={ name: 'Alan Smith', vehicle: 'FQU819' }, online, onlineText, currentState, drivingState: { drivingWindowLeft, drivingTimeLeft, dutyTimeLeft } } = this.props;
     const { openMenu } = this.props;
     //const { dimension: { width, height } } = this.props;
     return (
@@ -79,6 +79,7 @@ export default class MainPage extends Component {
         <View style={{backgroundColor: colors.main}}>
           <View style={styles.row}>
             <Text style={[fonts.subheading, {color: 'white'}]}>{ driver.name }</Text>
+            <Text style={[fonts.subheading, {color: 'white'}]}>OR916616</Text>
             <Text style={[fonts.subheading, {color: 'white'}]}>{ driver.vehicle }</Text>
           </View>
           <View style={[styles.row, {paddingLeft: 0}]}>
