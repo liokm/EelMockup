@@ -180,7 +180,7 @@ function select(state) {
 const connected = [
   wrapMenu(MainPage), // wrappedMainPage
   Today,
-  Launch,
+  //Launch,
   DayView,
   Status,
   //Terms,
@@ -212,11 +212,10 @@ const initial = 'main';
 class App extends Component {
   render() {
     return (
-      <Router hideNavBar={true}>
+      <Router hideNavBar={true} name='root'>
         <Schema name="default" sceneConfig={ Navigator.SceneConfigs.FloatFromRight} />
-        <Route name="launch" component={connected.Launch} initial={false} title="Launch" />
+        <Route name="launch" wrapRouter={true} hideNavBar={true} component={connected.WrappedMainPage} initial={initial=='main'} title="" sceneConfig={ Navigator.SceneConfigs.FloatFromBottom } />
         <Route name="today" component={connected.Today} initial={false} title="Today" sceneConfig={ Navigator.SceneConfigs.FloatFromBottom } />
-        <Route name="main" component={connected.WrappedMainPage} initial={initial=='main'} title="" sceneConfig={ Navigator.SceneConfigs.FloatFromBottom } />
         <Route name="terms" component={() => <WebPage title='Terms & Conditions' url='https://help.eroad.com/nz/driver-app/logbook/nz-logbook-overview/' />} />
         <Route name="help" component={() => <WebPage title='Help' url='https://help.eroad.com/nz/driver-app/logbook/nz-logbook-overview/' />} />
         <Route name="dayview" component={connected.DayView} initial={initial=='dayview'} sceneConfig={ Navigator.SceneConfigs.FloatFromRight } />
